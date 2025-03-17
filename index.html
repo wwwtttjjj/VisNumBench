@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="VisNumBench: Evaluating Number Sense of Multimodal Large Language Models">
+
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="Multimodal Benchmark, Multimodal Learning, Vision and Language Dataset, Vision Language Model, LLM, VLM">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>VisNumBench</title>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-MFCT45H');</script>
+  <!-- End Google Tag Manager -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/dataTables.bulma.css">
+  <link rel="icon" href="non-existent-image.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  </head>
+  <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFCT45H" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div> -->
+  <!-- <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://zeyofu.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://muirbench.github.io/">
+            MuirBench
+          </a>
+          <a class="navbar-item" href="https://zeyofu.github.io/CommonsenseT2I/">
+            Commonsense-T2I
+          </a>
+          <a class="navbar-item" href="https://visualsketchpad.github.io/">
+            Visual Sketchpad
+          </a>
+          <a class="navbar-item" href="https://zeyofu.github.io/ReFocus/">
+            ReFocus
+          </a>          
+        </div>
+      </div>
+    </div> -->
+
+  <!-- </div> -->
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><b>VisNumBench</b>: Evaluating Number Sense of Multimodal Large Language Models</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+                <span class="author-block">
+                  <a href="https://scholar.google.com.hk/citations?user=j4KbYm4AAAAJ&hl=zh-CN" target="_blank"><font color="#B082C9"><b>Tengjin Weng</b></font></a><sup>1,2</sup>&emsp;
+                </span>
+                <span class="author-block">
+                  <a href="https://github.com/Karina-ww" target="_blank"><font color="#B082C9"><b>Jingyi Wang</b></font></a><sup>3</sup>&emsp;
+                </span>
+                <span class="author-block">
+                  <a href="https://scholar.google.com.hk/citations?user=rAlT64IAAAAJ&hl=zh-CN&oi=ao" target="_blank"><font color="#B082C9"><b>Wenhao Jiang</b></font></a><sup>2</sup>&emsp;
+                </span>
+                <span class="author-block">
+                  <a href="https://scholar.google.com.hk/citations?user=CnLP3-gAAAAJ&hl=zh-CN&oi=ao" target="_blank"><font color="#B082C9"><b>Zhong Ming</b></font></a><sup>1,2</sup>&emsp;
+                </span>
+                </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">
+                      <sup>1</sup>College of Computer Science and Software Engineering, Shenzhen University&emsp;<br>
+                      <sup>2</sup>Guangdong Laboratory of Artificial Intelligence and Digital Economy (SZ)&emsp;<br>
+                      <sup>3</sup>Tsinghua Shenzhen International Graduate School, Tsinghua University&emsp; <br>
+                    </span>
+                    <!-- <span class="author-block">
+                      <h1 class="title is-4"><font color="#B03A2E"><b>ECCV 2024</b></font></h1>
+                    </span> -->
+                    <!-- <span class="author-block">Institution Name<br>Conferance name and year</span> -->
+                    <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution</small></span> -->
+                  </div>
+
+                  <div class="content has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a href="" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                    <span class="link-block">
+                      <a href="https://huggingface.co/datasets/wwwtttjjj/VisNumBench" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fa fa-database"></i>
+                      </span>
+                      <span>HF Dataset</span>
+                    </a>
+                  </span>
+                  </span>
+
+                  <span class="link-block">
+                    <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                  </span>
+
+                <!-- <!-- <span class="link-block">
+                  <a href="https://eval.ai/web/challenges/challenge-page/2287/overview" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa fa-link"></i>
+                  </span>
+                  <span>EvalAI</span>
+                  </a>
+                </span> -->
+<!-- 
+                  <span>Arxiv</span>
+                  </a>
+                </span> -->
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser image-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">What is <b>VisNumBench</b>?</h2>
+      <h2 class="subtitle has-text-justified">
+        <span style="font-weight:bold;"><b>VisNumBench</b>  </span>
+        is a benchmark of 7 number sense tasks from both synthetic and real-world scenarios that can be solved by human number sense but pose significant challenges to current multimodal large language models (MLLMs).</h2>
+      <img src="static/images/image2.jpg" height="100%"/>
+      <!-- <h2 class="subtitle has-text-centered">Example tasks in <span style="font-weight:bold;">BLINK</span>.</h2> -->
+      <h2 class="hero-body has-text-centered">
+        <br>
+        Example tasks in <span style="font-weight:bold;">VisNumBench</span>. The VisNumBench's seven aspects—angle Perception, Scale Perception, Length Perception, Quantity Perception, Depth Perception, Area Perception, and Volume Perception—and four distinct visual numerical estimation tasks—value comparison, value estimation, range estimation, and multiplicative estimation—are designed to comprehensively evaluate the number sense capabilities of MLLMs.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser image -->
+
+
+<!-- Teaser video-->
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video poster="" id="tree" autoplay controls muted loop height="100%">
+        <source src="static/videos/banner_video.mp4"
+        type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        Brief video introduction about <span style="font-weight:bold;">BLINK Benchmark.</span>. 
+      </h2>
+    </div>
+  </div>
+</section> -->
+<!-- End teaser video -->
+
+<!-- Leaderboard -->
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3" id="leaderboard">
+        <span class="fancy_text_color">
+        Leaderboard
+      </span>
+      </h2>
+    </div>
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="content has-text-justified">
+        <div class="has-text-centered">
+        <p>
+          We provide a leaderboard on the <b>validation</b> set for the community to track progress. All models are evaluated in a zero-shot setting using promts provided in the dataset.
+        </p>
+          <div id="table-container"></div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</section> -->
+
+
+<!-- BLINK Comparison -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-sixths">
+        <h2 class="title is-3"><b>VisNumBench</b> -- Charateristic</h2>
+        <h2 class="content has-text-justified">
+        
+        <ul>
+          <li><b> Explanations of number sense: how humans intuitively perceive and estimate values of angle, quantity, length, and scale.</li>
+          <li><b>Evaluation results of MLLMs on the VisNumBench.
+            The performance of MLLMs on VisNumBench is significantly poor in terms of accuracy, whereas human performance is nearly perfect. </li>
+        </ul>
+        <!-- </h2>
+        <img src="static/images/comparison.png" height="100%"/>
+        <h2 class="content has-text-centered">
+          <b>BLINK</b> has several novel features different from previous benchmarks.
+        </h2>
+        <h2 class="content has-text-justified">
+        
+          <ul>
+            <li><b>BLINK</b> covers 14 perception-demanding tasks, inspired by classical computer vision problems. While these problems only takes human a "blink" to solve, they exceed the capabilities of current multimodal large language models.</li>
+          </ul>
+          </h2> -->
+        <div class="myrow">
+          <div class="mycolumn">
+            <img src="static/images/image1.jpg" style="width:90%">
+          </div>
+          <div class="mycolumn">
+            <img src="static/images/randar.jpg" style="width:100%">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Paper abstract -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-sixths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Can Multimodal Large Language Models (MLLMs) develop an intuitive number sense similar to humans? Targeting this problem, we introduce Visual Number Benchmark (<b>VisNumBench</b>) to evaluate the number sense abilities of MLLMs across a wide range of visual numerical tasks. <b>VisNumBench</b> consists of about 
+            multiple-choice question-answer pairs derived from both synthetic and real-world visual data, covering seven visual numerical attributes and four types of visual numerical estimation tasks. Our experiments on <b>VisNumBench</b> led to the following key findings: (i) The 17 MLLMs we tested—including open-source models such as Qwen2.5-VL and InternVL2.5, as well as proprietary models like GPT-4o and Gemini 2.0 Flash—perform significantly below human levels in number sense-related tasks. (ii) Multimodal mathematical models and multimodal chain-of-thought (CoT) models did not exhibit significant improvements in number sense abilities. (iii) Stronger MLLMswith larger parameter sizes and broader general abilities demonstrate modest gains in number sense abilities. We believe <b>VisNumBench</b> will serve as a valuable resource for the research community, encouraging further advancements in enhancing LVLMs' number sense abilities.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+
+<!-- Paper Qualitative
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-sixths">
+        <h2 class="title is-3">Qualitative Results</h2>
+        <img src="static/images/qual.png" width="100%"/>
+        <!-- <h2 class="content has-text-centered">
+          Qualitative results on <b>BLINK</b>. 
+        </h2> -->
+        <!-- <h2 class="content has-text-justified">
+          For each task, we show the choice of LLaVAv1.6-34B, Qwen-VL-Max, Gemini Pro, GPT-4V, and humans. Red choice indicates the ground truth. Notice that the markers are intentionally enlarged for visualization purposes, and we make some images inset images to save space. For IQ test, the third image is constructed by overlaying the first and second images.
+        </h2>
+        
+      </div>
+    </div>
+  </div>
+</section> --> -->
+
+
+<!-- Paper Quantitative -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-sixths">
+        <h2 class="title is-3">Results</h2>
+        <img src="static/images/results_synthetic.jpg" height="90%"/>
+        <img src="static/images/results_real.jpg" height="90%"/>
+        <h2 class="content has-text-centered">
+          Results of different models on the <b>VisNumBench</b> test set. The first table shows the results on the synthetic scenario, and the second table shows the results on the real-world scenario.
+        </h2>
+        <h2 class="content has-text-justified">
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Paper Analysis
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Experiment Analysis</h2> <br>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-five-sixths">
+        <h2 class="title is-5">
+        1. Is dense captioning all you need for a multimodal LLM benchmark?
+        <h2 class="content has-text-justified">
+          To answer the question, we convert images into task-agnostic dense image captions with GPT-4V, and follow with a text-based LLM. The dense caption describes detailed information about the image and the visual prompts (e.g., where each circle is), using language. We experiment with <b>BLINK, MMBench</b> and <b>MMMU</b>. Surprisingly, we find that the Caption + LLM setting achieves better results on MMBench and MMMU then BLINK. These results indicate that image captions carry a large portion of visual information needed to answer other benchmarks. Meanwhile, <b>BLINK requires advanced perceptual abilities beyond what is currently attainable with general captions</b>.
+        </h2>
+        <div class="columns is-centered has-text-centered">
+        <img src="static/images/caption_results.png" width="60%"/> </div>
+        <h2 class="content has-text-centered">
+          Caption+LLM achieves good results on MMBench and MMMU, but failes on <b>BLINK</b>.
+        </h2>
+        <br>
+        <h2 class="title is-5">2. Visual prompting can effect a lot on multimodal LLMs.</h2>
+        <h2 class="content has-text-justified">
+          We analyze the effect of circle sizes and colors on multiple tasks in BLINK. The experiments suggest that visual prompting can have a big impact on multimodal LLM performance, and improving visual prompts or improving model robustness to prompt variation is a promising direction for future research.
+        </h2>
+        <img src="static/images/visual_prompt.png" height="100%"/>
+        <h2 class="content has-text-justified">
+          We find that the optimal circle size is task-dependent and on average 10px circles work the best. Also, red is better than gray for all tasks. 
+        </h2>
+
+
+        <h2 class="title is-5">3. Can specialist models solve Blink tasks? </h2>
+        <h2 class="content has-text-justified">
+          Specialists can serve as a proxy upper bound of how good multimodal LLMs could be. This sheds light on the possibility that multimodal LLMs may progress on these tasks given the correct data and training strategy. 
+        </h2>
+        <img src="static/images/specialist.png" height="100%"/>
+        <h2 class="content has-text-justified">
+          The specialists perform much better than GPT-4V and Gemini Pro, outperforming multimodal LLMs by 18% to 57% on these tasks. 
+        </h2>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- Image carousel examples in BLINK-->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3"><b>VisNumBench</b> Examples with Gemini 2.0 Flash Outputs</h2> <br></div>
+      <div class="columns is-centered">
+        <div class="column is-five-sixths">
+      <h2 class="content has-text-justified">
+        The example data for the different tasks from <b>VisNumBench</b>, with Gemini 2.0 Flash predictions attached.
+      </h2>
+    </div></div>
+  </div></section>
+<section class="hero is-small">
+  <div class="hero-body">
+        <div class="container">
+          <div id="results-carousel" class="carousel results-carousel">
+           <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide1.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide2.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide3.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide4.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide5.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide6.jpg" width="100%"/>
+            <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide7.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide8.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide9.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide10.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide11.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+          <div class="item">
+            <!-- Your image here -->
+            <img src="static/images/example/Slide12.jpg" width="100%"/>
+                        <!-- <h2 class="subtitle has-text-centered">
+              Example case from <b>BLINK</b> and GPT-4V prediction.
+            </h2> -->
+          </div>
+    
+          </div>
+        </div>
+  </div>
+</section>
+<!-- End image carousel -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><bibtexcode>
+      </bibtexcode></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://zeyofu.github.io/blink/" target="_blank">BLINK</a> project page.
+            
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+  
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <script src="./static/js/jquery.csv.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bulma.min.js"></script>
+    <script src="./static/js/csv_to_html_table.js"></script>
+    <script>
+      CsvToHtmlTable.init({
+        csv_path: 'static/val_result.csv', 
+        element: 'table-container', 
+        allow_download: true,
+        csv_options: {separator: ',', delimiter: '"'},
+        datatables_options: {
+          "paging": false, 
+          "order": [[1, 'desc']],
+          "columnDefs": [
+          {targets: [0], className: 'dt-left', className: 'dt-head-left'},
+          ]
+        }
+      });
+    </script>
+  
+  </body>
+  </html>
