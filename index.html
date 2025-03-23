@@ -277,44 +277,6 @@
   </div>
 </section>
 
-<!-- BLINK Comparison
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-five-sixths">
-        <h2 class="title is-3"><b>VisNumBench</b> -- Charateristic</h2>
-        <h2 class="content has-text-justified">
-        
-        <ul>
-          <li><b>VisNumBench is a benchmark based on human number sense abilities. Explanations of number sense: how humans intuitively perceive and estimate values of angle, quantity, length, and scale.(left)</li>
-          <li><b>VisNumBench covers 7  visual numerical attributes. 
-            The performance of MLLMs on VisNumBench is significantly poor in terms of accuracy, whereas human performance is nearly perfect. (right) </li>
-        </ul>
-        <!-- </h2>
-        <img src="static/images/comparison.png" height="100%"/>
-        <h2 class="content has-text-centered">
-          <b>BLINK</b> has several novel features different from previous benchmarks.
-        </h2>
-        <h2 class="content has-text-justified">
-        
-          <ul>
-            <li><b>BLINK</b> covers 14 perception-demanding tasks, inspired by classical computer vision problems. While these problems only takes human a "blink" to solve, they exceed the capabilities of current multimodal large language models.</li>
-          </ul>
-          </h2> -->
-        <!-- <div class="myrow">
-          <div class="mycolumn">
-            <img src="static/images/image1.jpg" style="width:90%">
-          </div>
-          <div class="mycolumn">
-            <img src="static/images/randar.jpg" style="width:100%">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> --> -->
-
-
 <!-- Paper abstract -->
 <section class="section hero">
   <div class="container is-max-desktop">
@@ -332,28 +294,6 @@
   </div>
 </section>
 <!-- End paper abstract -->
-
-
-
-<!-- Paper Qualitative
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-five-sixths">
-        <h2 class="title is-3">Qualitative Results</h2>
-        <img src="static/images/qual.png" width="100%"/>
-        <!-- <h2 class="content has-text-centered">
-          Qualitative results on <b>BLINK</b>. 
-        </h2> -->
-        <!-- <h2 class="content has-text-justified">
-          For each task, we show the choice of LLaVAv1.6-34B, Qwen-VL-Max, Gemini Pro, GPT-4V, and humans. Red choice indicates the ground truth. Notice that the markers are intentionally enlarged for visualization purposes, and we make some images inset images to save space. For IQ test, the third image is constructed by overlaying the first and second images.
-        </h2>
-        
-      </div>
-    </div>
-  </div>
-</section> --> -->
-
 
 <!-- Paper Quantitative -->
 <section class="section hero">
@@ -373,49 +313,6 @@
     </div>
   </div>
 </section>
-
-
-<!-- Paper Analysis
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <h2 class="title is-3">Experiment Analysis</h2> <br>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-five-sixths">
-        <h2 class="title is-5">
-        1. Is dense captioning all you need for a multimodal LLM benchmark?
-        <h2 class="content has-text-justified">
-          To answer the question, we convert images into task-agnostic dense image captions with GPT-4V, and follow with a text-based LLM. The dense caption describes detailed information about the image and the visual prompts (e.g., where each circle is), using language. We experiment with <b>BLINK, MMBench</b> and <b>MMMU</b>. Surprisingly, we find that the Caption + LLM setting achieves better results on MMBench and MMMU then BLINK. These results indicate that image captions carry a large portion of visual information needed to answer other benchmarks. Meanwhile, <b>BLINK requires advanced perceptual abilities beyond what is currently attainable with general captions</b>.
-        </h2>
-        <div class="columns is-centered has-text-centered">
-        <img src="static/images/caption_results.png" width="60%"/> </div>
-        <h2 class="content has-text-centered">
-          Caption+LLM achieves good results on MMBench and MMMU, but failes on <b>BLINK</b>.
-        </h2>
-        <br>
-        <h2 class="title is-5">2. Visual prompting can effect a lot on multimodal LLMs.</h2>
-        <h2 class="content has-text-justified">
-          We analyze the effect of circle sizes and colors on multiple tasks in BLINK. The experiments suggest that visual prompting can have a big impact on multimodal LLM performance, and improving visual prompts or improving model robustness to prompt variation is a promising direction for future research.
-        </h2>
-        <img src="static/images/visual_prompt.png" height="100%"/>
-        <h2 class="content has-text-justified">
-          We find that the optimal circle size is task-dependent and on average 10px circles work the best. Also, red is better than gray for all tasks. 
-        </h2>
-
-
-        <h2 class="title is-5">3. Can specialist models solve Blink tasks? </h2>
-        <h2 class="content has-text-justified">
-          Specialists can serve as a proxy upper bound of how good multimodal LLMs could be. This sheds light on the possibility that multimodal LLMs may progress on these tasks given the correct data and training strategy. 
-        </h2>
-        <img src="static/images/specialist.png" height="100%"/>
-        <h2 class="content has-text-justified">
-          The specialists perform much better than GPT-4V and Gemini Pro, outperforming multimodal LLMs by 18% to 57% on these tasks. 
-        </h2>
-      </div>
-    </div>
-  </div>
-</section> -->
 
 
 <!-- Image carousel examples in BLINK-->
